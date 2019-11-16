@@ -41,7 +41,10 @@
     const targetArticle = document.querySelector(articleSelector);
     console.log(targetArticle);
 
-    /* add class 'active' to the correct article */
+    /* [in progress] add class 'active' to the correct article */
+
+    targetArticle.classList.add('active');
+    console.log('targetArticle', targetArticle);
   }
   
   const links = document.querySelectorAll('.titles a');
