@@ -49,11 +49,6 @@
     
   }
 
-  const links = document.querySelectorAll('.titles a');
-
-  for(let link of links){
-    link.addEventListener('click', titleClickHandler);
-    }
 
   const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
@@ -96,6 +91,14 @@
     titleList.insertAdjacentHTML('beforeend', linkHTML);
     console.log(titleList);
   
+    const links = document.querySelectorAll('.titles a');
+    console.log(links);
+
+    for(let link of links){
+      link.addEventListener('click', titleClickHandler);
+      }
+
+
     }
   }
 
