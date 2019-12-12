@@ -66,14 +66,18 @@
     /* [done] for each article */
 
     const articles = document.querySelectorAll(optArticleSelector);
+    console.log(articles);
     for(let article of articles) { 
 
-    /* get the article id */
+    /* [done] get the article id */
 
     const articleId = article.getAttribute('id');
     console.log(articleId);
 
-    /* find the title element */
+    /* [done] find the title element */
+
+    const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+    console.log(articleTitle);
 
     /* get the title from the title element */
 
