@@ -46,15 +46,20 @@
 
       targetArticle.classList.add('active');
       console.log('targetArticle', targetArticle);
-
-
-
     
   }
+
+  const links = document.querySelectorAll('.titles a');
+
+  for(let link of links){
+    link.addEventListener('click', titleClickHandler);
+    }
 
   const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles';
+
+         /*  function generateTitleLinks(){}  czy lepiej const generateTitleList = function(){}  */
 
   function generateTitleLinks(){
 
@@ -88,16 +93,14 @@
 
     /* insert link into titleList */
     
+    titleList.insertAdjacentHTML('beforeend', linkHTML);
+    console.log(titleList);
   
-  }
+    }
   }
 
   generateTitleLinks();  
-
-  const links = document.querySelectorAll('.titles a');
+  console.log(generateTitleLinks);
     
-  for(let link of links){
-    link.addEventListener('click', titleClickHandler);
-  }
-
+  
 }
