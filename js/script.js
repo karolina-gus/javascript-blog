@@ -116,16 +116,19 @@
       /* [done] find tags wrapper */
       const titleList = article.querySelector(optArticleTagsSelector);
   
-      /* make html variable with empty string */
+      /* [done] make html variable with empty string */
       let html = '';
   
-      /* get tags from data-tags attribute */
+      /* [done] get tags from data-tags attribute */
       const articleTags = article.getAttribute('data-tags');
       console.log(articleTags);
   
-      /* split tags into array */
+      /* [done] split tags into array */
+      const articleTagsArray = articleTags.split(' ');
+      console.log(articleTagsArray);
   
       /* START LOOP: for each tag */
+
   
       /* generate HTML of the link */
   
