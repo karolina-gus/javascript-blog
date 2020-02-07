@@ -8,8 +8,8 @@
   const titleClickHandler = function(event){
     event.preventDefault();
     const clickedElement = this; 
-    //console.log(event); 
-    //console.log('Link was clicked!');
+    console.log(event); 
+    console.log('Link was clicked!');
     
     /* [done] remove class 'active' from all article links  */
       
@@ -53,7 +53,8 @@
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
     optArticleTagsSelector = '.post-tags .list',
-    optTagsListSelector = '.tags.list',
+    optTagsListSelector = '.list.tags',
+    optAuthorListSelector ='.list.authors',
     optArticleAuthorSelector = '.post .post-author',
     optCloudClassCount = '5',
     optCloudClassPrefix = 'tag-size-';
@@ -190,7 +191,7 @@
     }
 
     /* [NEW] find list of tags in right column */
-    const tagList = document.querySelector('.tags');
+    const tagList = document.querySelector(optTagsListSelector);
 
     const tagsParams = calculateTagsParams(allTags);
     console.log('tagsParams:', tagsParams);
@@ -202,10 +203,10 @@
     for(let tag in allTags) {
       /* [NEW] generate code of a link and add it to allTagsHTML */
       const tagLinkHTML = calculateTagClass(allTags[tag], tagsParams);
-      console.log('tagLinkHTML:', tagLinkHTML);
+      //console.log('tagLinkHTML:', tagLinkHTML);
 
       allTagsHTML +=  '<li><a class="' + tagLinkHTML + '" href="#tag-' + tag +'">' +  tag + '</a></li>';
-      console.log('allTagsHTML:', allTagsHTML);
+      //console.log('allTagsHTML:', allTagsHTML);
     }
     /* [NEW] END LOOP: for each tag in allTags: */
 
@@ -283,7 +284,25 @@
   
   addClickListenersToTags();
 
+  const calculateAuthorsParams = function(authors) {
+    const params = {max: 0, min: 999999};
+    for(let author in authors) {
+      console.log(author + ' is used ' + authors[author] + ' times');
+      if(authors[author] > params.max){
+        params.max = authors[author];
+      }
+      if(authors[author] < params.min){
+        params.min = authors[author];
+      }
+    }
+    return params;
+  };
+
   function generateAuthors(){
+
+    /* [NEW] create a new variable allAuthors with an empty object */
+    let allAuthors = {};
+    console.log('allAuthors:', allAuthors);
 
     /* find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
@@ -306,6 +325,15 @@
       /*create HTML of the link*/
       const linkHTML = 'by  &nbsp' + '<a href="#author-' + author +'">' + author + '</a>';
       //console.log(linkHTML);
+
+      /* [NEW] check if this link is NOT already in allTags */
+      if(!allAuthors[author]){
+        /* [NEW] add tag to allTags object */
+        allAuthors[author] = 1;
+        //console.log(allTags);
+      } else {
+        allAuthors[author]++;
+      }
   
       /* insert HTML of all the links into the author wrapper */
       titleList.innerHTML = html + linkHTML;
@@ -313,6 +341,28 @@
 
     /* END LOOP: for every article: */
     }
+
+    /* [NEW] find list of tags in right column */
+    const authorList = document.querySelector(optAuthorListSelector);
+    console.log(authorList);
+    const authorsParams = calculateAuthorsParams(allAuthors);
+    console.log('authorsParams', authorsParams);
+
+    /* [NEW] create variable for all links HTML code */
+    let allAuthorsHTML = '';
+
+    /*[NEW] start LOOP for for each author in allAuthors*/
+    for(let author in allAuthors) {
+
+      /*[NEW] generate code of a link and add it to allAuthorsHTML*/
+      allAuthorsHTML += '<li><a href="#author-' + author +'">' + author + ' ('+ allAuthors[author] +') ' + '</a></li>';
+      //console.log(allAuthorsHTML);
+
+    /*[NEW] END LOOP: for each author in allAuthors*/
+    }
+
+    /*[NEW] add html from allAuthorsHTML to authorList*/
+    authorList.innerHTML = allAuthorsHTML;
 
 
   }
@@ -366,8 +416,9 @@
   }
 
   function addClickListenersToAuthors() {
+
     /* find all links to authors */
-    const links = document.querySelectorAll('.post-author a');
+    const links = document.querySelectorAll('.post-author a, .list.authors a');
     //console.log(links);
 
     /* START LOOP: for each link */
