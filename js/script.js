@@ -218,6 +218,9 @@
   console.log(generateTags);
 
   function tagClickHandler(event){
+
+    console.log(event);
+    console.log('Tag was clicked');
     /* prevent default action for this event */
     event.preventDefault();
 
@@ -233,8 +236,9 @@
     //console.log(tag);
   
     /* find all tag links with class active */
-    const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
-    //console.log(activeTags);
+    //const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
+    const activeTags = document.querySelectorAll('a[href="' + href + '"]');
+    console.log('activeTags:', activeTags);
   
     /* START LOOP: for each active tag link */
     for(let activeTag of activeTags){
@@ -268,7 +272,7 @@
     //console.log(addClickListenersToTags);
 
     /* find all links to tags */
-    const links = document.querySelectorAll('.post-tags a[href^="#tag-"]');
+    const links = document.querySelectorAll('.post-tags a[href^="#tag-"], .sidebar a[href^="#tag-"]');
     //console.log (links);
   
     /* START LOOP: for each link */
